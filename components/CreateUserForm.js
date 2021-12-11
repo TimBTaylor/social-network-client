@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { LoginFormStyles } from "../styles/LoginFormStyles";
 import { useForm, Controller } from "react-hook-form";
+import { UserFormStyles } from "../styles/UserFormStyles";
 
-export const LoginForm = () => {
+export const CreateUserForm = () => {
   const {
     control,
     handleSubmit,
@@ -11,14 +11,32 @@ export const LoginForm = () => {
   } = useForm({
     defaultValues: {
       email: "",
-      password: "",
+      name: "",
     },
   });
 
   const onSubmit = (data) => console.log(data);
 
   return (
-    <View style={LoginFormStyles.container}>
+    <View style={UserFormStyles.container}>
+      <Controller
+        defaultValue=""
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            placeholder="Name"
+            onChangeText={onChange}
+            value={value}
+            style={
+              errors.name ? UserFormStyles.inputError : UserFormStyles.input
+            }
+          />
+        )}
+        name="name"
+      />
       <Controller
         defaultValue=""
         control={control}
@@ -31,13 +49,12 @@ export const LoginForm = () => {
             onChangeText={onChange}
             value={value}
             style={
-              errors.name ? LoginFormStyles.inputError : LoginFormStyles.input
+              errors.email ? UserFormStyles.inputError : UserFormStyles.input
             }
           />
         )}
         name="email"
       />
-
       <Controller
         defaultValue=""
         control={control}
@@ -50,7 +67,7 @@ export const LoginForm = () => {
             onChangeText={onChange}
             value={value}
             style={
-              errors.email ? LoginFormStyles.inputError : LoginFormStyles.input
+              errors.email ? UserFormStyles.inputError : UserFormStyles.input
             }
           />
         )}
@@ -58,10 +75,10 @@ export const LoginForm = () => {
       />
       <TouchableOpacity
         type="submit"
-        style={LoginFormStyles.loginButton}
+        style={UserFormStyles.loginButton}
         onPress={handleSubmit(onSubmit)}
       >
-        <Text style={LoginFormStyles.loginText}>Login</Text>
+        <Text style={UserFormStyles.loginText}>Login</Text>
       </TouchableOpacity>
     </View>
   );

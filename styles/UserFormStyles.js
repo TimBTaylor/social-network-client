@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const LoginFormStyles = StyleSheet.create({
+export const UserFormStyles = StyleSheet.create({
   container: {
     backgroundColor: "#FFF",
     height: "58%",

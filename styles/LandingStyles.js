@@ -35,4 +35,16 @@ export const LandingStyles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
   },
+  switchContainer: {
+    position: "absolute",
+    bottom: 125,
+    zIndex: 3,
+    flexDirection: "row",
+    width: "80%",
+    justifyContent: "center",
+  },
+  createAccount: {
+    marginTop: 7,
+    marginRight: 15,
+  },
 });
