@@ -2,8 +2,11 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { UserFormStyles } from "../styles/UserFormStyles";
+import { userInfoStore } from "../store/user";
+import { observer } from "mobx-react";
 
-export const CreateUserForm = () => {
+export const CreateUserForm = observer((props) => {
+  const navigation = props.navigation;
   const {
     control,
     handleSubmit,
@@ -12,10 +15,16 @@ export const CreateUserForm = () => {
     defaultValues: {
       email: "",
       name: "",
+      password: "",
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    let email = data.email.toLowerCase();
+    let name = data.name;
+    let password = data.password;
+    userInfoStore.registerUser({ email, name, password, navigation });
+  };
 
   return (
     <View style={UserFormStyles.container}>
@@ -63,6 +72,7 @@ export const CreateUserForm = () => {
         }}
         render={({ field: { onChange, value } }) => (
           <TextInput
+            secureTextEntry={true}
             placeholder="Password"
             onChangeText={onChange}
             value={value}
@@ -75,11 +85,11 @@ export const CreateUserForm = () => {
       />
       <TouchableOpacity
         type="submit"
-        style={UserFormStyles.loginButton}
+        style={UserFormStyles.registerButton}
         onPress={handleSubmit(onSubmit)}
       >
-        <Text style={UserFormStyles.loginText}>Login</Text>
+        <Text style={UserFormStyles.registerText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
-};
+});

@@ -2,8 +2,11 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { LoginFormStyles } from "../styles/LoginFormStyles";
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { userInfoStore } from "../store/user";
 
-export const LoginForm = () => {
+export const LoginForm = (props) => {
+  const navigation = props.navigation;
   const {
     control,
     handleSubmit,
@@ -15,7 +18,11 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    let email = data.email.toLowerCase();
+    let password = data.password;
+    userInfoStore.login({ email, password, navigation });
+  };
 
   return (
     <View style={LoginFormStyles.container}>
@@ -31,7 +38,7 @@ export const LoginForm = () => {
             onChangeText={onChange}
             value={value}
             style={
-              errors.name ? LoginFormStyles.inputError : LoginFormStyles.input
+              errors.email ? LoginFormStyles.inputError : LoginFormStyles.input
             }
           />
         )}
@@ -46,6 +53,7 @@ export const LoginForm = () => {
         }}
         render={({ field: { onChange, value } }) => (
           <TextInput
+            secureTextEntry={true}
             placeholder="Password"
             onChangeText={onChange}
             value={value}

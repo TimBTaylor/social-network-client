@@ -12,7 +12,7 @@ import { LandingStyles } from "../styles/LandingStyles";
 import { LoginForm } from "../components/LoginForm";
 import { CreateUserForm } from "../components/CreateUserForm";
 
-export const Landing = () => {
+export const Landing = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
@@ -26,7 +26,11 @@ export const Landing = () => {
           <Image style={LandingStyles.image} source={network} />
           <Text style={LandingStyles.socialNetwork}>Social Network</Text>
           <Text style={LandingStyles.alwaysConnected}>Always be connected</Text>
-          {isEnabled ? <CreateUserForm /> : <LoginForm />}
+          {isEnabled ? (
+            <CreateUserForm navigation={navigation} />
+          ) : (
+            <LoginForm navigation={navigation} />
+          )}
         </View>
       </KeyboardAvoidingView>
       <View style={LandingStyles.switchContainer}>

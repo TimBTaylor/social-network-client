@@ -37,8 +37,8 @@ export const UserFormStyles = StyleSheet.create({
     marginTop: 25,
     paddingLeft: 10,
   },
-  loginButton: {
-    marginTop: 35,
+  registerButton: {
+    marginTop: 15,
     width: "65%",
     backgroundColor: "#149de1",
     height: 50,
@@ -50,7 +50,7 @@ export const UserFormStyles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
   },
-  loginText: {
+  registerText: {
     fontSize: 20,
     fontWeight: "700",
   },
