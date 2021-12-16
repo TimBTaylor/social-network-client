@@ -1,13 +1,13 @@
 import axios from "axios";
 import { makeObservable, observable, action, runInAction } from "mobx";
 import { Alert } from "react-native";
+import { postStore } from "./post";
 
 class User {
   id = "";
   name = "";
   email = "";
   profileImage = "";
-
   constructor() {
     makeObservable(this, {
       id: observable,
@@ -15,6 +15,7 @@ class User {
       email: observable,
       profileImage: observable,
       registerUser: action,
+      login: action,
     });
   }
 
@@ -73,7 +74,6 @@ class User {
       },
     })
       .then((response) => {
-        console.log(response.data);
         if (response.data === "Wrong email/password combination") {
           Alert.alert(
             "Incorrect Login",
@@ -93,6 +93,7 @@ class User {
             this.email = response.data[0].email;
             this.profileImage = response.data[0].profileImage;
           });
+          postStore.getFollowingPost(response.data[0].id, data.navigation);
           data.navigation.push("Home");
         }
       })

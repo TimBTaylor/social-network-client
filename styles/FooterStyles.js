@@ -9,35 +9,51 @@ export const FooterStyles = StyleSheet.create({
     bottom: 0,
     height: 120,
     backgroundColor: "#003585",
-  },
-  iconsContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  labelContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
   },
   home: {
-    fontSize: 15,
-    fontWeight: "400",
+    flex: 1,
+    alignItems: "center",
     color: "#fff",
   },
-  newPost: {
-    fontSize: 15,
-    fontWeight: "400",
-    color: "#fff",
+  post: {
+    flex: 1,
+    alignItems: "center",
   },
   notifications: {
-    fontSize: 15,
-    fontWeight: "400",
-    color: "#fff",
+    flex: 1,
+    alignItems: "center",
   },
   profile: {
-    fontSize: 15,
-    fontWeight: "400",
+    flex: 1,
+    alignItems: "center",
+  },
+  label: {
+    fontWeight: "500",
+    color: "#fff",
+  },
+  labelActive: {
+    fontWeight: "500",
+    color: "#000",
+  },
+  postText: {
+    fontWeight: "500",
+
+    marginTop: 3,
+    color: "#fff",
+  },
+  postTextActive: {
+    fontWeight: "500",
+
+    marginTop: 3,
+    color: "#000",
+  },
+  iconActive: {
+    color: "#000",
+  },
+  iconNotActive: {
     color: "#fff",
   },
 });
