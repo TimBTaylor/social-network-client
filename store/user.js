@@ -94,7 +94,6 @@ class User {
             this.profileImage = response.data[0].profileImage;
           });
           postStore.getFollowingPost(response.data[0].id, data.navigation);
-          data.navigation.push("Home");
         }
       })
       .catch((err) => {

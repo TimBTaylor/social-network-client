@@ -3,14 +3,17 @@ import { StyleSheet } from "react-native";
 export const NavBarStyles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "flex-end",
     position: "absolute",
-    top: "5%",
     width: "100%",
+    backgroundColor: "#fff",
+    zIndex: 2,
+    height: "10%",
   },
   brandAndSearch: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between",
     paddingLeft: 10,
     paddingRight: 10,
@@ -35,7 +38,6 @@ export const NavBarStyles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 15,
   },
   profileImage: {
     width: 50,

@@ -14,24 +14,6 @@ export const NavBar = () => {
           <EvilIcons name="search" size={35} color="#fff" />
         </View>
       </View>
-      <View style={NavBarStyles.postContainer}>
-        {userInfoStore.profileImage ? (
-          <Image
-            source={{ uri: userInfoStore.profileImage }}
-            style={NavBarStyles.profileImage}
-          />
-        ) : (
-          <Ionicons
-            name="person-circle"
-            size={55}
-            color="black"
-            style={NavBarStyles.defaultProfileImage}
-          />
-        )}
-        <TouchableOpacity style={NavBarStyles.statusInput}>
-          <Text style={NavBarStyles.statusText}>What's on your mind?</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

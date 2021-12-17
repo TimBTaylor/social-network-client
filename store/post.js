@@ -22,6 +22,7 @@ class Post {
           runInAction(() => {
             this.followingPost = response.data;
           });
+          navigation.push("Home");
         } else {
           console.log(response);
           navigation.push("Landing");

@@ -12,6 +12,7 @@ export const FooterStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
+    zIndex: 2,
   },
   home: {
     flex: 1,
