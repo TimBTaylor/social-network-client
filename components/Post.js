@@ -4,8 +4,9 @@ import { PostStyles } from "../styles/PostStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { HomeStyles } from "../styles/HomeStyles";
 import { AntDesign } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { postStore } from "../store/post";
+import { userInfoStore } from "../store/user";
 
 export const Post = (props) => {
   const post = props.post;
@@ -120,6 +121,32 @@ export const Post = (props) => {
     }
   });
 
+  const isRetweetedPost = postStore.retweetedPost.some((object) => {
+    if (object.originalPostID === post.postID) {
+      return true;
+    }
+  });
+
+  const handleLikedPost = () => {
+    const data = {
+      likesAmount: post.likes + 1,
+      postID: post.postID,
+      postedByID: post.postedByID,
+      likedByID: userInfoStore.id,
+    };
+    postStore.likePost(data);
+  };
+
+  const handleRemoveLiked = () => {
+    const data = {
+      likesAmount: post.likes - 1,
+      postID: post.postID,
+      postedByID: post.postedByID,
+      likedByID: userInfoStore.id,
+    };
+    postStore.removeLikeFromPost(data);
+  };
+
   return (
     <View key={post.postID} style={PostStyles.postContainer}>
       <View style={PostStyles.postHeader}>
@@ -151,15 +178,39 @@ export const Post = (props) => {
           }}
         ></View>
         <View style={PostStyles.likeAndRetweet}>
-          <TouchableOpacity>
-            {isLikedPost ? (
+          {isLikedPost ? (
+            <TouchableOpacity
+              style={PostStyles.like}
+              onPress={handleRemoveLiked}
+            >
               <AntDesign name="like1" size={30} color="#003585" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={PostStyles.like}>
+              <AntDesign
+                name="like2"
+                size={30}
+                color="black"
+                onPress={handleLikedPost}
+              />
+            </TouchableOpacity>
+          )}
+          {post.likes > 0 ? (
+            <View style={PostStyles.likesAmountContainer}>
+              <Text style={PostStyles.likesAmount}>{post.likes}</Text>
+            </View>
+          ) : null}
+          <TouchableOpacity style={PostStyles.retweet}>
+            {isRetweetedPost ? (
+              <Entypo name="retweet" size={33} color="#003585" />
             ) : (
-              <AntDesign name="like2" size={30} color="black" />
+              <Entypo name="retweet" size={33} color="black" />
             )}
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <EvilIcons name="retweet" size={36} color="black" />
+            {post.retweets > 0 ? (
+              <View style={PostStyles.retweetsAmountContainer}>
+                <Text style={PostStyles.retweetsAmount}>{post.retweets}</Text>
+              </View>
+            ) : null}
           </TouchableOpacity>
         </View>
       </View>

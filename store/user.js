@@ -93,6 +93,7 @@ class User {
             this.email = response.data[0].email;
             this.profileImage = response.data[0].profileImage;
           });
+          postStore.getRetweetedPost(response.data[0].id);
           postStore.getLikedPost(response.data[0].id);
           postStore.getFollowingPost(response.data[0].id, data.navigation);
         }

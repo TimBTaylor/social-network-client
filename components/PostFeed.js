@@ -8,7 +8,6 @@ import { RetweetPost } from "./RetweetPost";
 
 export const PostFeed = () => {
   const followingPost = postStore.followingPost;
-
   return (
     <View style={PostFeedStyles.container}>
       {followingPost.map((post) => {
