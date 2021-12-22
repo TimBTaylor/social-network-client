@@ -1,11 +1,9 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { NavBarStyles } from "../styles/NavBarStyles";
 import { EvilIcons } from "@expo/vector-icons";
-import { userInfoStore } from "../store/user";
-import { Ionicons } from "@expo/vector-icons";
 
-export const NavBar = () => {
+export const NavBar = (props) => {
   return (
     <View style={NavBarStyles.container}>
       <View style={NavBarStyles.brandAndSearch}>

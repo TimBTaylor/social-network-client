@@ -1,12 +1,13 @@
+import { observer } from "mobx-react";
 import React from "react";
 import { View } from "react-native";
 import { postStore } from "../store/post";
 import { PostFeedStyles } from "../styles/PostFeedStyles";
 
-import { Post } from "./Post";
-import { RetweetPost } from "./RetweetPost";
+import Post from "./Post";
+import RetweetPost from "./RetweetPost";
 
-export const PostFeed = () => {
+const PostFeed = () => {
   const followingPost = postStore.followingPost;
   return (
     <View style={PostFeedStyles.container}>
@@ -20,3 +21,5 @@ export const PostFeed = () => {
     </View>
   );
 };
+
+export default observer(PostFeed);

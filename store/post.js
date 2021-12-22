@@ -5,20 +5,47 @@ class Post {
   followingPost = [];
   likedPost = [];
   retweetedPost = [];
+  usersPost = [];
 
   constructor() {
     makeObservable(this, {
       followingPost: observable,
+      likedPost: observable,
+      retweetedPost: observable,
+      usersPost: observable,
       getFollowingPost: action,
       getLikedPost: action,
+      getUsersPost: action,
+      getLikedPost: action,
+      getRetweetedPost: action,
+      likePost: action,
+      removeLikeFromPost: action,
+      retweetPost: action,
+      removeRetweetFromPost: action,
     });
+  }
+
+  async getUsersPost(userID) {
+    await axios({
+      method: "get",
+      url: `http://localhost:3001/post/${userID}/posts`,
+    })
+      .then((response) => {
+        if (response.status == 200) {
+          runInAction(() => {
+            this.usersPost = response.data.reverse();
+          });
+        } else {
+          console.log(err);
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   async getFollowingPost(userID, navigation) {
     await axios({
       method: "get",
       url: `http://localhost:3001/post/${userID}/posts/following`,
-      header: { "Content-Type": "application/json" },
     })
       .then((response) => {
         if (response.status === 200) {
@@ -29,6 +56,26 @@ class Post {
         } else {
           console.log(response);
           navigation.push("Landing");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //get following with no navigation
+  async getFollowingPostNoNavigation(userID) {
+    await axios({
+      method: "get",
+      url: `http://localhost:3001/post/${userID}/posts/following`,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          runInAction(() => {
+            this.followingPost = response.data.reverse();
+          });
+        } else {
+          console.log(response);
         }
       })
       .catch((err) => {
@@ -88,6 +135,7 @@ class Post {
       .then((response) => {
         if (response.status === 200) {
           this.getLikedPost(data.likedByID);
+          this.getFollowingPostNoNavigation(data.likedByID);
         } else {
           console.log(response);
         }
@@ -111,6 +159,7 @@ class Post {
       .then((response) => {
         if (response.status === 200) {
           this.getLikedPost(data.likedByID);
+          this.getFollowingPostNoNavigation(data.likedByID);
         } else {
           console.log(response);
         }
@@ -121,12 +170,12 @@ class Post {
   //retweet a post
   async retweetPost(data) {
     await axios({
-      method: "put",
-      url: "http://localhost:3001/post/remove-like",
+      method: "post",
+      url: "http://localhost:3001/post/new-retweet",
       header: { "Content-Type": "application/json" },
       data: {
         retweetsAmount: data.retweetsAmount,
-        postByID: data.postByID,
+        postedByID: data.postedByID,
         text: data.text,
         date: data.date,
         userName: data.userName,
@@ -141,8 +190,34 @@ class Post {
       },
     })
       .then((response) => {
+        if (response.status === 201) {
+          this.getRetweetedPost(data.postedByID);
+          this.getFollowingPostNoNavigation(data.postedByID);
+          this.getUsersPost(data.postedByID);
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  //remove retweeted post
+  async removeRetweetFromPost(data) {
+    await axios({
+      method: "put",
+      url: "http://localhost:3001/post/remove-retweet",
+      header: { "Content-Type": "application/json" },
+      data: {
+        retweetsAmount: data.retweetsAmount,
+        postID: data.postID,
+        retweetedPostID: data.retweetedPostID,
+      },
+    })
+      .then((response) => {
         if (response.status === 200) {
-          this.getRetweetedPost(data.postByID);
+          this.getRetweetedPost(data.postedByID);
+          this.getFollowingPostNoNavigation(data.postedByID);
+          this.getUsersPost(data.postedByID);
         } else {
           console.log(response);
         }

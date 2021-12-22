@@ -3,9 +3,13 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { RetweetStyles } from "../styles/RetweetStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { HomeStyles } from "../styles/HomeStyles";
-import { EvilIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { postStore } from "../store/post";
+import { userInfoStore } from "../store/user";
+import { observer } from "mobx-react";
 
-export const RetweetPost = (props) => {
+const RetweetPost = (props) => {
   const post = props.post;
 
   //returns time from date of post
@@ -115,6 +119,71 @@ export const RetweetPost = (props) => {
       );
     }
   }
+
+  const isLikedPost = postStore.likedPost.some((object) => {
+    if (object.postID === post.postID) {
+      return true;
+    }
+  });
+
+  const isRetweetedPost = postStore.retweetedPost.some((object) => {
+    if (object.originalPostID === post.postID) {
+      return true;
+    }
+  });
+
+  const handleLikedPost = () => {
+    const data = {
+      likesAmount: post.likes + 1,
+      postID: post.postID,
+      postedByID: post.postedByID,
+      likedByID: userInfoStore.id,
+    };
+    postStore.likePost(data);
+  };
+
+  const handleRemoveLiked = () => {
+    const data = {
+      likesAmount: post.likes - 1,
+      postID: post.postID,
+      postedByID: post.postedByID,
+      likedByID: userInfoStore.id,
+    };
+    postStore.removeLikeFromPost(data);
+  };
+  const handleRetweetPost = () => {
+    const data = {
+      retweetsAmount: post.retweets + 1,
+      postedByID: userInfoStore.id,
+      text: post.text,
+      date: new Date(),
+      userName: userInfoStore.name,
+      userImage: userInfoStore.profileImage,
+      postImage: post.postImage,
+      retweet: 1,
+      originalPostedByID: post.originalPostedByID,
+      originalPostedByName: post.originalPostedByName,
+      originalPostedByImage: post.originalPostedByImage,
+      originalPostedByDate: post.originalPostedByDate,
+      originalPostID: post.originalPostID,
+    };
+    postStore.retweetPost(data);
+  };
+
+  const handleRemoveRetweet = () => {
+    const currentPostID = post.postID;
+    const toBeRemovedPost = postStore.usersPost.filter((post) => {
+      return post.originalPostID === currentPostID;
+    });
+    const data = {
+      retweetsAmount: post.retweets - 1,
+      retweetedPostID: post.postID,
+      postedByID: userInfoStore.id,
+      postID: toBeRemovedPost[0].id,
+    };
+    postStore.removeRetweetFromPost(data);
+  };
+
   return (
     <View key={post.postID} style={RetweetStyles.postContainer}>
       <View style={RetweetStyles.postHeader}>
@@ -166,14 +235,70 @@ export const RetweetPost = (props) => {
           }}
         ></View>
         <View style={RetweetStyles.likeAndRetweet}>
-          <TouchableOpacity>
-            <EvilIcons name="like" size={36} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <EvilIcons name="retweet" size={36} color="black" />
-          </TouchableOpacity>
+          {isLikedPost ? (
+            <TouchableOpacity
+              style={RetweetStyles.like}
+              onPress={handleRemoveLiked}
+            >
+              <AntDesign name="like1" size={30} color="#003585" />
+              {post.likes > 0 ? (
+                <View style={RetweetStyles.likesAmountContainer}>
+                  <Text style={RetweetStyles.likesAmount}>{post.likes}</Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={RetweetStyles.like}>
+              <AntDesign
+                name="like2"
+                size={30}
+                color="black"
+                onPress={handleLikedPost}
+              />
+              {post.likes > 0 ? (
+                <View style={RetweetStyles.likesAmountContainer}>
+                  <Text style={RetweetStyles.likesAmount}>{post.likes}</Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
+          {isRetweetedPost ? (
+            <TouchableOpacity style={RetweetStyles.retweet}>
+              <Entypo
+                name="retweet"
+                size={33}
+                color="#003585"
+                onPress={handleRemoveRetweet}
+              />
+              {post.retweets > 0 ? (
+                <View style={RetweetStyles.retweetsAmountContainer}>
+                  <Text style={RetweetStyles.retweetsAmount}>
+                    {post.retweets}
+                  </Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={RetweetStyles.retweet}>
+              <Entypo
+                name="retweet"
+                size={33}
+                color="black"
+                onPress={handleRetweetPost}
+              />
+              {post.retweets > 0 ? (
+                <View style={RetweetStyles.retweetsAmountContainer}>
+                  <Text style={RetweetStyles.retweetsAmount}>
+                    {post.retweets}
+                  </Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
   );
 };
+
+export default observer(RetweetPost);

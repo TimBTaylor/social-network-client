@@ -35,6 +35,7 @@ class User {
       .then((response) => {
         console.log(response.data);
         if (response.status === 201) {
+          //need to create a server side request for new following, the user needs to follow themselves so their post show up in news feed
           runInAction(() => {
             this.id = response.data[[0]].id;
             this.name = response.data[0].name;
@@ -93,6 +94,7 @@ class User {
             this.email = response.data[0].email;
             this.profileImage = response.data[0].profileImage;
           });
+          postStore.getUsersPost(response.data[0].id);
           postStore.getRetweetedPost(response.data[0].id);
           postStore.getLikedPost(response.data[0].id);
           postStore.getFollowingPost(response.data[0].id, data.navigation);

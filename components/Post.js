@@ -7,8 +7,9 @@ import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { postStore } from "../store/post";
 import { userInfoStore } from "../store/user";
+import { observer } from "mobx-react";
 
-export const Post = (props) => {
+const Post = (props) => {
   const post = props.post;
 
   //returns time from date of post
@@ -147,6 +148,39 @@ export const Post = (props) => {
     postStore.removeLikeFromPost(data);
   };
 
+  const handleRetweetPost = () => {
+    const data = {
+      retweetsAmount: post.retweets + 1,
+      postedByID: userInfoStore.id,
+      text: post.text,
+      date: new Date(),
+      userName: userInfoStore.name,
+      userImage: userInfoStore.profileImage,
+      postImage: post.postImage,
+      retweet: 1,
+      originalPostedByID: post.postedByID,
+      originalPostedByName: post.postedByName,
+      originalPostedByImage: post.postedByImage,
+      originalPostedByDate: post.date,
+      originalPostID: post.postID,
+    };
+    postStore.retweetPost(data);
+  };
+
+  const handleRemoveRetweet = () => {
+    const currentPostID = post.postID;
+    const toBeRemovedPost = postStore.usersPost.filter((post) => {
+      return post.originalPostID === currentPostID;
+    });
+    const data = {
+      retweetsAmount: post.retweets - 1,
+      retweetedPostID: post.postID,
+      postedByID: userInfoStore.id,
+      postID: toBeRemovedPost[0].id,
+    };
+    postStore.removeRetweetFromPost(data);
+  };
+
   return (
     <View key={post.postID} style={PostStyles.postContainer}>
       <View style={PostStyles.postHeader}>
@@ -184,6 +218,11 @@ export const Post = (props) => {
               onPress={handleRemoveLiked}
             >
               <AntDesign name="like1" size={30} color="#003585" />
+              {post.likes > 0 ? (
+                <View style={PostStyles.likesAmountContainer}>
+                  <Text style={PostStyles.likesAmount}>{post.likes}</Text>
+                </View>
+              ) : null}
             </TouchableOpacity>
           ) : (
             <TouchableOpacity style={PostStyles.like}>
@@ -193,27 +232,46 @@ export const Post = (props) => {
                 color="black"
                 onPress={handleLikedPost}
               />
+              {post.likes > 0 ? (
+                <View style={PostStyles.likesAmountContainer}>
+                  <Text style={PostStyles.likesAmount}>{post.likes}</Text>
+                </View>
+              ) : null}
             </TouchableOpacity>
           )}
-          {post.likes > 0 ? (
-            <View style={PostStyles.likesAmountContainer}>
-              <Text style={PostStyles.likesAmount}>{post.likes}</Text>
-            </View>
-          ) : null}
-          <TouchableOpacity style={PostStyles.retweet}>
-            {isRetweetedPost ? (
-              <Entypo name="retweet" size={33} color="#003585" />
-            ) : (
-              <Entypo name="retweet" size={33} color="black" />
-            )}
-            {post.retweets > 0 ? (
-              <View style={PostStyles.retweetsAmountContainer}>
-                <Text style={PostStyles.retweetsAmount}>{post.retweets}</Text>
-              </View>
-            ) : null}
-          </TouchableOpacity>
+          {isRetweetedPost ? (
+            <TouchableOpacity style={PostStyles.retweet}>
+              <Entypo
+                name="retweet"
+                size={33}
+                color="#003585"
+                onPress={handleRemoveRetweet}
+              />
+              {post.retweets > 0 ? (
+                <View style={PostStyles.retweetsAmountContainer}>
+                  <Text style={PostStyles.retweetsAmount}>{post.retweets}</Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={PostStyles.retweet}>
+              <Entypo
+                name="retweet"
+                size={33}
+                color="black"
+                onPress={handleRetweetPost}
+              />
+              {post.retweets > 0 ? (
+                <View style={PostStyles.retweetsAmountContainer}>
+                  <Text style={PostStyles.retweetsAmount}>{post.retweets}</Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
   );
 };
+
+export default observer(Post);

@@ -33,8 +33,7 @@ export const PostStyles = StyleSheet.create({
   },
   likesAmountContainer: {
     position: "absolute",
-    left: 40,
-    top: 2,
+    left: 30,
     backgroundColor: "#003585",
     height: 20,
     width: 20,
