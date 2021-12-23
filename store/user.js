@@ -2,6 +2,7 @@ import axios from "axios";
 import { makeObservable, observable, action, runInAction } from "mobx";
 import { Alert } from "react-native";
 import { postStore } from "./post";
+import { followingStore } from "./following";
 
 class User {
   id = "";
@@ -37,10 +38,11 @@ class User {
         if (response.status === 201) {
           //need to create a server side request for new following, the user needs to follow themselves so their post show up in news feed
           runInAction(() => {
-            this.id = response.data[[0]].id;
+            this.id = response.data[0].id;
             this.name = response.data[0].name;
             this.email = response.data[0].email;
           });
+          followingStore.userFollowThemselves(response.data[0].id);
           Alert.alert(
             "Account created",
             "You can now sign in with this account",

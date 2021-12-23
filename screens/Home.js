@@ -7,7 +7,7 @@ import { HomeStyles } from "../styles/HomeStyles";
 import { userInfoStore } from "../store/user";
 import { Ionicons } from "@expo/vector-icons";
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
   return (
     <>
       <NavBar />
@@ -32,7 +32,7 @@ export const Home = () => {
         </View>
         <PostFeed />
       </ScrollView>
-      <Footer active="home" />
+      <Footer active="home" navigation={navigation} />
     </>
   );
 };

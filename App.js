@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Landing } from "./screens/Landing";
 import { Home } from "./screens/Home";
+import { Post } from "./screens/Post";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Post"
+          component={Post}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

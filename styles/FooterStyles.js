@@ -11,7 +11,7 @@ export const FooterStyles = StyleSheet.create({
     backgroundColor: "#003585",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     zIndex: 2,
   },
   home: {

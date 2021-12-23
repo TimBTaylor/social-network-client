@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { FooterStyles } from "../styles/FooterStyles";
 import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 
@@ -7,7 +7,10 @@ export const Footer = (props) => {
   const active = props.active;
   return (
     <View style={FooterStyles.container}>
-      <View style={FooterStyles.home}>
+      <TouchableOpacity
+        style={FooterStyles.home}
+        onPress={() => props.navigation.push("Home")}
+      >
         <Entypo
           name="home"
           size={45}
@@ -24,8 +27,11 @@ export const Footer = (props) => {
         >
           Home
         </Text>
-      </View>
-      <View style={FooterStyles.post}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={FooterStyles.post}
+        onPress={() => props.navigation.push("Post")}
+      >
         <MaterialIcons
           name="post-add"
           size={45}
@@ -44,7 +50,7 @@ export const Footer = (props) => {
         >
           New Post
         </Text>
-      </View>
+      </TouchableOpacity>
       <View style={FooterStyles.notifications}>
         <Ionicons
           name="notifications"
