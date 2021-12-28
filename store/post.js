@@ -25,6 +25,31 @@ class Post {
     });
   }
 
+  //create new post
+  async createNewPost(data, navigation) {
+    await axios({
+      method: "post",
+      url: "http://localhost:3001/post/new-post",
+      header: { "Content-Type": "application/json" },
+      data: {
+        postedByID: data.postedByID,
+        text: data.text,
+        date: data.date,
+        userName: data.userName,
+        userImage: data.userImage,
+        postImage: data.postImage,
+      },
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          this.getFollowingPost(data.postedByID, navigation);
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   async getUsersPost(userID) {
     await axios({
       method: "get",

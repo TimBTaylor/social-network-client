@@ -7,7 +7,7 @@ import { PostScreenStyles } from "../styles/PostScreenStyles";
 export const Post = ({ navigation }) => {
   return (
     <View style={PostScreenStyles.container}>
-      <PostForm />
+      <PostForm navigation={navigation} />
       <Footer active="post" navigation={navigation} />
     </View>
   );
