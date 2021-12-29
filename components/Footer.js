@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FooterStyles } from "../styles/FooterStyles";
 import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
+import { userInfoStore } from "../store/user";
 
 export const Footer = (props) => {
   const active = props.active;
@@ -71,7 +72,10 @@ export const Footer = (props) => {
           Notifications
         </Text>
       </View>
-      <View style={FooterStyles.profile}>
+      <TouchableOpacity
+        style={FooterStyles.profile}
+        onPress={() => props.navigation.push("Profile")}
+      >
         <Ionicons
           name="person"
           size={45}
@@ -88,7 +92,7 @@ export const Footer = (props) => {
         >
           Profile
         </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

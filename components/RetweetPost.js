@@ -205,9 +205,9 @@ const RetweetPost = (props) => {
       <View style={RetweetStyles.postBody}>
         <View style={RetweetStyles.retweetBody}>
           <View style={RetweetStyles.retweetHeader}>
-            {post.originalPostedByImage !== null ? (
-              <Image source={post.originalPostedByImage} />
-            ) : (
+            {post.originalPostedByImage !==
+            null ? // <Image source={post.originalPostedByImage} />
+            null : (
               <Ionicons
                 name="person-circle"
                 size={45}
@@ -223,7 +223,7 @@ const RetweetPost = (props) => {
             </View>
           </View>
           <Text style={RetweetStyles.postText}>{post.text}</Text>
-          {post.postImage !== null ? <Image source={post.postImage} /> : null}
+          {post.postImage !== null ? null : null}
         </View>
         <View
           style={{

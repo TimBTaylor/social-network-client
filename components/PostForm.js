@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, Image } from "react-native";
 import { PostFormHeader } from "./PostFormHeader";
 import { PostFormStyles } from "../styles/PostForm/PostFormStyles";
 import { userInfoStore } from "../store/user";
@@ -20,9 +20,7 @@ export const PostForm = (props) => {
       <View style={PostFormStyles.formContainer}>
         <View style={PostFormStyles.postHeader}>
           <View style={PostFormStyles.imgAndName}>
-            {userInfoStore.profileImage !== null ? (
-              <Image source={post.postedByImage} />
-            ) : (
+            {userInfoStore.profileImage !== null ? null : (
               <Ionicons name="person-circle" size={55} color="black" />
             )}
             <Text style={PostFormStyles.name}>{userInfoStore.name}</Text>

@@ -9,14 +9,20 @@ class User {
   name = "";
   email = "";
   profileImage = "";
+  followerAmount = "";
+  followingAmount = "";
   constructor() {
     makeObservable(this, {
       id: observable,
       name: observable,
       email: observable,
       profileImage: observable,
+      followerAmount: observable,
+      followingAmount: observable,
       registerUser: action,
       login: action,
+      getUserFollowerCount: action,
+      getUserFollowingCount: action,
     });
   }
 
@@ -100,11 +106,47 @@ class User {
           postStore.getRetweetedPost(response.data[0].id);
           postStore.getLikedPost(response.data[0].id);
           postStore.getFollowingPost(response.data[0].id, data.navigation);
+          this.getUserFollowerCount(response.data[0].id);
+          this.getUserFollowingCount(response.data[0].id);
         }
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  async getUserFollowerCount(userID) {
+    await axios({
+      method: "get",
+      url: `http://localhost:3001/user/${userID}/followers`,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          runInAction(() => {
+            this.followerAmount = response.data.length;
+          });
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  async getUserFollowingCount(userID) {
+    await axios({
+      method: "get",
+      url: `http://localhost:3001/user/${userID}/following`,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          runInAction(() => {
+            this.followingAmount = response.data.length;
+          });
+        } else {
+          console.log(result);
+        }
+      })
+      .catch((err) => console.log(err));
   }
 }
 

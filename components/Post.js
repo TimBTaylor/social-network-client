@@ -184,9 +184,7 @@ const Post = (props) => {
   return (
     <View key={post.postID} style={PostStyles.postContainer}>
       <View style={PostStyles.postHeader}>
-        {post.postedByImage !== null ? (
-          <Image source={post.postedByImage} />
-        ) : (
+        {post.postedByImage !== null ? null : (
           <Ionicons
             name="person-circle"
             size={45}
@@ -201,7 +199,7 @@ const Post = (props) => {
       </View>
       <View style={PostStyles.postBody}>
         <Text style={PostStyles.postText}>{post.text}</Text>
-        {post.postImage !== null ? <Image source={post.postImage} /> : null}
+        {post.postImage !== null ? null : null}
         <View
           style={{
             borderBottomColor: "#000",
