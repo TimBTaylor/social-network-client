@@ -6,6 +6,7 @@ import PostFeed from "../components/PostFeed";
 import { HomeStyles } from "../styles/HomeStyles";
 import { userInfoStore } from "../store/user";
 import { Ionicons } from "@expo/vector-icons";
+import { postStore } from "../store/post";
 
 export const Home = ({ navigation }) => {
   return (
@@ -30,7 +31,7 @@ export const Home = ({ navigation }) => {
             <Text style={HomeStyles.statusText}>What's on your mind?</Text>
           </TouchableOpacity>
         </View>
-        <PostFeed />
+        <PostFeed postList={postStore.followingPost} />
       </ScrollView>
       <Footer active="home" navigation={navigation} />
     </>

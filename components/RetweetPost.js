@@ -11,7 +11,6 @@ import { observer } from "mobx-react";
 
 const RetweetPost = (props) => {
   const post = props.post;
-
   //returns time from date of post
   function getTimeDiff(oDatePublished) {
     var oResult = {};
@@ -205,9 +204,7 @@ const RetweetPost = (props) => {
       <View style={RetweetStyles.postBody}>
         <View style={RetweetStyles.retweetBody}>
           <View style={RetweetStyles.retweetHeader}>
-            {post.originalPostedByImage !==
-            null ? // <Image source={post.originalPostedByImage} />
-            null : (
+            {post.originalPostedByImage !== null ? null : ( // <Image source={post.originalPostedByImage} />
               <Ionicons
                 name="person-circle"
                 size={45}
