@@ -3,6 +3,7 @@ import { makeObservable, observable, action, runInAction } from "mobx";
 import { Alert } from "react-native";
 import { postStore } from "./post";
 import { followingStore } from "./following";
+import { notificationStore } from "./notification";
 
 class User {
   id = "";
@@ -108,6 +109,8 @@ class User {
           postStore.getFollowingPost(response.data[0].id, data.navigation);
           this.getUserFollowerCount(response.data[0].id);
           this.getUserFollowingCount(response.data[0].id);
+          notificationStore.getNotViewedNotifications(response.data[0].id);
+          notificationStore.getViewedNotifications(response.data[0].id);
         }
       })
       .catch((err) => {

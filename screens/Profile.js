@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { ProfileHeader } from "../components/ProfileHeader";
 import ProfileBody from "../components/ProfileBody";
-import { Footer } from "../components/Footer";
+import Footer from "../components/Footer";
 import { ProfileStyles } from "../styles/Profile/ProfileStyles";
 
 export const Profile = ({ navigation }) => {

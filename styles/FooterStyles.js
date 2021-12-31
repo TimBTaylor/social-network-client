@@ -57,4 +57,13 @@ export const FooterStyles = StyleSheet.create({
   iconNotActive: {
     color: "#fff",
   },
+  notification: {
+    backgroundColor: "red",
+    height: 17,
+    width: 17,
+    borderRadius: 10,
+    position: "absolute",
+    top: 0,
+    right: 30,
+  },
 });

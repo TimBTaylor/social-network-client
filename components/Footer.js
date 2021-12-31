@@ -2,10 +2,15 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FooterStyles } from "../styles/FooterStyles";
 import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
-import { userInfoStore } from "../store/user";
+import { notificationStore } from "../store/notification";
+import { observer } from "mobx-react-lite";
 
-export const Footer = (props) => {
+const Footer = (props) => {
   const active = props.active;
+
+  const notViewedNotificationsLength =
+    notificationStore.notViewedNotifications.length;
+
   return (
     <View style={FooterStyles.container}>
       <TouchableOpacity
@@ -52,7 +57,10 @@ export const Footer = (props) => {
           New Post
         </Text>
       </TouchableOpacity>
-      <View style={FooterStyles.notifications}>
+      <TouchableOpacity
+        style={FooterStyles.notifications}
+        onPress={() => props.navigation.push("Notifications")}
+      >
         <Ionicons
           name="notifications"
           size={45}
@@ -71,7 +79,10 @@ export const Footer = (props) => {
         >
           Notifications
         </Text>
-      </View>
+        {notViewedNotificationsLength > 0 ? (
+          <View style={FooterStyles.notification}></View>
+        ) : null}
+      </TouchableOpacity>
       <TouchableOpacity
         style={FooterStyles.profile}
         onPress={() => props.navigation.push("Profile")}
@@ -96,3 +107,5 @@ export const Footer = (props) => {
     </View>
   );
 };
+
+export default observer(Footer);

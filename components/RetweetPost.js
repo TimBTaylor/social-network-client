@@ -8,6 +8,7 @@ import { Entypo } from "@expo/vector-icons";
 import { postStore } from "../store/post";
 import { userInfoStore } from "../store/user";
 import { observer } from "mobx-react";
+import { notificationStore } from "../store/notification";
 
 const RetweetPost = (props) => {
   const post = props.post;
@@ -139,6 +140,16 @@ const RetweetPost = (props) => {
       likedByID: userInfoStore.id,
     };
     postStore.likePost(data);
+    const newNoticationData = {
+      userForID: post.postedByID,
+      userFromID: userInfoStore.id,
+      userFromImage: userInfoStore.profileImage,
+      text: `${userInfoStore.name} liked your post`,
+      viewed: 0,
+      postID: post.postID,
+      retweet: 1,
+    };
+    notificationStore.createNewNotification(newNoticationData);
   };
 
   const handleRemoveLiked = () => {
@@ -167,6 +178,16 @@ const RetweetPost = (props) => {
       originalPostID: post.originalPostID,
     };
     postStore.retweetPost(data);
+    const newNoticationData = {
+      userForID: post.postedByID,
+      userFromID: userInfoStore.id,
+      userFromImage: userInfoStore.profileImage,
+      text: `${userInfoStore.name} retweeted your post`,
+      viewed: 0,
+      postID: post.postID,
+      retweet: 1,
+    };
+    notificationStore.createNewNotification(newNoticationData);
   };
 
   const handleRemoveRetweet = () => {

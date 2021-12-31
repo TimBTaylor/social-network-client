@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import { Footer } from "../components/Footer";
+import Footer from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import PostFeed from "../components/PostFeed";
 import { HomeStyles } from "../styles/HomeStyles";
