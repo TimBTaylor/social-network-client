@@ -31,7 +31,7 @@ export const Home = ({ navigation }) => {
             <Text style={HomeStyles.statusText}>What's on your mind?</Text>
           </TouchableOpacity>
         </View>
-        <PostFeed postList={postStore.followingPost} />
+        <PostFeed postList={postStore.followingPost} navigation={navigation} />
       </ScrollView>
       <Footer active="home" navigation={navigation} />
     </>

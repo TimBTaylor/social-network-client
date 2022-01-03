@@ -12,6 +12,7 @@ class User {
   profileImage = "";
   followerAmount = "";
   followingAmount = "";
+  currentUserProfile = "";
   constructor() {
     makeObservable(this, {
       id: observable,
@@ -20,11 +21,32 @@ class User {
       profileImage: observable,
       followerAmount: observable,
       followingAmount: observable,
+      currentUserProfile: observable,
       registerUser: action,
       login: action,
       getUserFollowerCount: action,
       getUserFollowingCount: action,
+      getCurrentUserProfile: action,
     });
+  }
+
+  //update currentUserProfile
+  async getCurrentUserProfile(userID, navigation) {
+    await axios({
+      method: "get",
+      url: `http://localhost:3001/user/${userID}/info/${this.id}`,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          runInAction(() => {
+            this.currentUserProfile = response.data;
+          });
+          navigation.push("visitingProfile");
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   //register user

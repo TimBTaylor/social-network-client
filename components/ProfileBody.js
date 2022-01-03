@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { postStore } from "../store/post";
 import { ProfileBodyStyles } from "../styles/Profile/ProfileBodyStyles";
 import { observer } from "mobx-react";
 import PostFeed from "./PostFeed";
 
-const ProfileBody = () => {
+const ProfileBody = (props) => {
   const [currentView, setCurrentView] = useState("Post");
+  const postStore = props.postInfo;
   return (
     <View style={ProfileBodyStyles.container}>
       <View style={ProfileBodyStyles.headerContainer}>
@@ -71,21 +71,30 @@ const ProfileBody = () => {
       <ScrollView style={ProfileBodyStyles.scrollViewContainer}>
         {currentView === "Post" ? (
           postStore.usersPost.length > 0 ? (
-            <PostFeed postList={postStore.usersPost} />
+            <PostFeed
+              postList={postStore.usersPost}
+              navigation={props.navigation}
+            />
           ) : (
             <Text style={ProfileBodyStyles.noPost}>No post</Text>
           )
         ) : null}
         {currentView === "Retweets" ? (
           postStore.retweetedPost.length > 0 ? (
-            <PostFeed postList={postStore.retweetedPost} />
+            <PostFeed
+              postList={postStore.retweetedPost}
+              navigation={props.navigation}
+            />
           ) : (
             <Text style={ProfileBodyStyles.noRetweets}>No retweets</Text>
           )
         ) : null}
         {currentView === "Likes" ? (
           postStore.likedPost.length > 0 ? (
-            <PostFeed postList={postStore.likedPost} />
+            <PostFeed
+              postList={postStore.likedPost}
+              navigation={props.navigation}
+            />
           ) : (
             <Text style={ProfileBodyStyles.noLikes}>No likes</Text>
           )

@@ -12,9 +12,13 @@ const PostFeed = (props) => {
     <View style={PostFeedStyles.container}>
       {postList.map((post) => {
         return post.retweet ? (
-          <RetweetPost key={post.postID} post={post} />
+          <RetweetPost
+            key={post.postID}
+            post={post}
+            navigation={props.navigation}
+          />
         ) : (
-          <Post key={post.postID} post={post} />
+          <Post key={post.postID} post={post} navigation={props.navigation} />
         );
       })}
     </View>

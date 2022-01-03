@@ -204,9 +204,16 @@ const RetweetPost = (props) => {
     postStore.removeRetweetFromPost(data);
   };
 
+  const handleVisitProfile = (userID) => {
+    userInfoStore.getCurrentUserProfile(userID, props.navigation);
+  };
+
   return (
     <View key={post.postID} style={RetweetStyles.postContainer}>
-      <View style={RetweetStyles.postHeader}>
+      <TouchableOpacity
+        style={RetweetStyles.postHeader}
+        onPress={() => handleVisitProfile(post.postedByID)}
+      >
         {post.postedByImage !== null ? (
           <Image source={post.postedByImage} />
         ) : (
@@ -221,10 +228,13 @@ const RetweetPost = (props) => {
           <Text style={RetweetStyles.postedByName}>{post.postedByName}</Text>
           {postTimeDisplay(post.date)}
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={RetweetStyles.postBody}>
         <View style={RetweetStyles.retweetBody}>
-          <View style={RetweetStyles.retweetHeader}>
+          <TouchableOpacity
+            style={RetweetStyles.retweetHeader}
+            onPress={() => handleVisitProfile(post.originalPostedByID)}
+          >
             {post.originalPostedByImage !== null ? null : ( // <Image source={post.originalPostedByImage} />
               <Ionicons
                 name="person-circle"
@@ -239,7 +249,7 @@ const RetweetPost = (props) => {
               </Text>
               {postTimeDisplay(post.originalPostedByDate)}
             </View>
-          </View>
+          </TouchableOpacity>
           <Text style={RetweetStyles.postText}>{post.text}</Text>
           {post.postImage !== null ? null : null}
         </View>

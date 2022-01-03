@@ -202,9 +202,16 @@ const Post = (props) => {
     postStore.removeRetweetFromPost(data);
   };
 
+  const handleVisitProfile = (userID) => {
+    userInfoStore.getCurrentUserProfile(userID, props.navigation);
+  };
+
   return (
     <View key={post.postID} style={PostStyles.postContainer}>
-      <View style={PostStyles.postHeader}>
+      <TouchableOpacity
+        style={PostStyles.postHeader}
+        onPress={() => handleVisitProfile(post.postedByID)}
+      >
         {post.postedByImage !== null ? null : (
           <Ionicons
             name="person-circle"
@@ -213,11 +220,14 @@ const Post = (props) => {
             style={HomeStyles.defaultProfileImage}
           />
         )}
-        <View style={PostStyles.nameAndDate}>
+        <TouchableOpacity
+          style={PostStyles.nameAndDate}
+          onPress={() => handleVisitProfile(post.postedByID)}
+        >
           <Text style={PostStyles.postedByName}>{post.postedByName}</Text>
           {postTimeDisplay(post.date)}
-        </View>
-      </View>
+        </TouchableOpacity>
+      </TouchableOpacity>
       <View style={PostStyles.postBody}>
         <Text style={PostStyles.postText}>{post.text}</Text>
         {post.postImage !== null ? null : null}

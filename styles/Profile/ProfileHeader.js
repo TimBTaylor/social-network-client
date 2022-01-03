@@ -32,4 +32,37 @@ export const ProfileHeaderStyles = StyleSheet.create({
   followersAmount: {
     fontWeight: "600",
   },
+  isFollowingVisitor: {
+    backgroundColor: "#BFBFBF",
+    padding: 3,
+    borderRadius: 15,
+  },
+  unfollow: {
+    position: "absolute",
+    bottom: 5,
+    right: 0,
+    zIndex: 2,
+    backgroundColor: "#003585",
+    padding: 7,
+    borderRadius: 15,
+  },
+  unfollowText: {
+    color: "#fff",
+    fontWeight: "500",
+  },
+  follow: {
+    position: "absolute",
+    bottom: 5,
+    right: 0,
+    zIndex: 2,
+    backgroundColor: "#fff",
+    borderColor: "#003585",
+    borderWidth: 2,
+    padding: 7,
+    borderRadius: 15,
+  },
+  followText: {
+    fontWeight: "500",
+    color: "#003585",
+  },
 });

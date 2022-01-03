@@ -7,6 +7,7 @@ import { Post } from "./screens/Post";
 import { Profile } from "./screens/Profile";
 import { Notifications } from "./screens/Notifications";
 import { NotificationView } from "./screens/NotificationView";
+import { UsersProfile } from "./screens/UsersProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,11 @@ export default function App() {
         <Stack.Screen
           name="NotificationView"
           component={NotificationView}
+          options={{ headerShown: false, animation: "none" }}
+        />
+        <Stack.Screen
+          name="visitingProfile"
+          component={UsersProfile}
           options={{ headerShown: false, animation: "none" }}
         />
       </Stack.Navigator>
