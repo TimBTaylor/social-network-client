@@ -57,4 +57,32 @@ export const NavBarStyles = StyleSheet.create({
     paddingLeft: 5,
     paddingTop: 5,
   },
+  searchCcontainer: {
+    position: "absolute",
+    zIndex: 3,
+    top: "10%",
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "100%",
+  },
+  searchActiveContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  arrow: {
+    position: "absolute",
+    left: 15,
+    top: 15,
+  },
+  input: {
+    marginTop: 10,
+    height: 40,
+    width: "70%",
+    fontSize: 18,
+    borderWidth: 2,
+    borderColor: "#003585",
+    paddingLeft: 10,
+    borderRadius: 20,
+    marginBottom: 15,
+  },
 });

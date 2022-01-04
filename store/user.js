@@ -13,6 +13,7 @@ class User {
   followerAmount = "";
   followingAmount = "";
   currentUserProfile = "";
+  allUsers = [];
   constructor() {
     makeObservable(this, {
       id: observable,
@@ -22,12 +23,32 @@ class User {
       followerAmount: observable,
       followingAmount: observable,
       currentUserProfile: observable,
+      allUsers: observable,
       registerUser: action,
       login: action,
       getUserFollowerCount: action,
       getUserFollowingCount: action,
       getCurrentUserProfile: action,
+      getAllUsers: action,
     });
+  }
+
+  //get all users
+  async getAllUsers() {
+    await axios({
+      method: "get",
+      url: "http://localhost:3001/user/all-users",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          runInAction(() => {
+            this.allUsers = response.data;
+          });
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   //update currentUserProfile
