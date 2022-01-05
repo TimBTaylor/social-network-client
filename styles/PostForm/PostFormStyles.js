@@ -39,4 +39,11 @@ export const PostFormStyles = StyleSheet.create({
     paddingTop: 15,
     fontSize: 16,
   },
+  profilePic: {
+    height: 60,
+    width: 60,
+    borderRadius: 50,
+    marginTop: 5,
+    marginRight: 4,
+  },
 });

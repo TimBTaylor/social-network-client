@@ -9,9 +9,12 @@ import { postStore } from "../store/post";
 import { userInfoStore } from "../store/user";
 import { observer } from "mobx-react";
 import { notificationStore } from "../store/notification";
+import TimsProfilePic from "../images/outdoors.jpeg";
+import BobsProfilePic from "../images/randomguy.jpeg";
 
 const Post = (props) => {
   const post = props.post;
+  let postedByName = post.postedByName;
 
   //returns time from date of post
   function getTimeDiff(oDatePublished) {
@@ -212,7 +215,11 @@ const Post = (props) => {
         style={PostStyles.postHeader}
         onPress={() => handleVisitProfile(post.postedByID)}
       >
-        {post.postedByImage !== null ? null : (
+        {postedByName === "Tim Taylor" ? (
+          <Image source={TimsProfilePic} style={PostStyles.profilePic} />
+        ) : postedByName === "Bob Evans" ? (
+          <Image source={BobsProfilePic} style={PostStyles.profilePic} />
+        ) : (
           <Ionicons
             name="person-circle"
             size={45}

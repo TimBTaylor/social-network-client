@@ -63,4 +63,11 @@ export const PostStyles = StyleSheet.create({
     color: "#fff",
     fontSize: 12,
   },
+  profilePic: {
+    height: 38,
+    width: 38,
+    borderRadius: 50,
+    marginTop: 5,
+    marginRight: 4,
+  },
 });

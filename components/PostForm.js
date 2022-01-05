@@ -5,6 +5,7 @@ import { PostFormStyles } from "../styles/PostForm/PostFormStyles";
 import { userInfoStore } from "../store/user";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import TimsProfilePicture from "../images/outdoors.jpeg";
 
 export const PostForm = (props) => {
   const [statusInput, setStatusInput] = useState("");
@@ -20,7 +21,12 @@ export const PostForm = (props) => {
       <View style={PostFormStyles.formContainer}>
         <View style={PostFormStyles.postHeader}>
           <View style={PostFormStyles.imgAndName}>
-            {userInfoStore.profileImage !== null ? null : (
+            {userInfoStore.name === "Tim Taylor" ? (
+              <Image
+                source={TimsProfilePicture}
+                style={PostFormStyles.profilePic}
+              />
+            ) : (
               <Ionicons name="person-circle" size={55} color="black" />
             )}
             <Text style={PostFormStyles.name}>{userInfoStore.name}</Text>

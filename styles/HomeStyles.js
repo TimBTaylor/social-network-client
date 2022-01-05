@@ -14,6 +14,7 @@ export const HomeStyles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10,
     paddingRight: 10,
+    marginTop: 10,
   },
   profileImage: {
     width: 50,
@@ -31,5 +32,11 @@ export const HomeStyles = StyleSheet.create({
   statusText: {
     paddingLeft: 5,
     paddingTop: 5,
+  },
+  profilePic: {
+    height: 38,
+    width: 38,
+    borderRadius: 50,
+    marginRight: 5,
   },
 });

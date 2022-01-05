@@ -9,6 +9,8 @@ import { postStore } from "../store/post";
 import { userInfoStore } from "../store/user";
 import { observer } from "mobx-react";
 import { notificationStore } from "../store/notification";
+import TimsProfilePicture from "../images/outdoors.jpeg";
+import BobsProfilePicture from "../images/randomguy.jpeg";
 
 const RetweetPost = (props) => {
   const post = props.post;
@@ -214,8 +216,8 @@ const RetweetPost = (props) => {
         style={RetweetStyles.postHeader}
         onPress={() => handleVisitProfile(post.postedByID)}
       >
-        {post.postedByImage !== null ? (
-          <Image source={post.postedByImage} />
+        {post.postedByName === "Tim Taylor" ? (
+          <Image source={TimsProfilePicture} style={RetweetStyles.profilePic} />
         ) : (
           <Ionicons
             name="person-circle"
@@ -235,7 +237,12 @@ const RetweetPost = (props) => {
             style={RetweetStyles.retweetHeader}
             onPress={() => handleVisitProfile(post.originalPostedByID)}
           >
-            {post.originalPostedByImage !== null ? null : ( // <Image source={post.originalPostedByImage} />
+            {post.originalPostedByName === "Bob Evans" ? (
+              <Image
+                source={BobsProfilePicture}
+                style={RetweetStyles.profilePic}
+              />
+            ) : (
               <Ionicons
                 name="person-circle"
                 size={45}

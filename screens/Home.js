@@ -7,18 +7,16 @@ import { HomeStyles } from "../styles/HomeStyles";
 import { userInfoStore } from "../store/user";
 import { Ionicons } from "@expo/vector-icons";
 import { postStore } from "../store/post";
+import TimsProfilePicture from "../images/outdoors.jpeg";
 
 export const Home = ({ navigation }) => {
   return (
     <>
-      <NavBar />
+      <NavBar navigation={navigation} />
       <ScrollView style={HomeStyles.container}>
         <View style={HomeStyles.postContainer}>
-          {userInfoStore.profileImage ? (
-            <Image
-              source={{ uri: userInfoStore.profileImage }}
-              style={HomeStyles.profileImage}
-            />
+          {userInfoStore.name === "Tim Taylor" ? (
+            <Image source={TimsProfilePicture} style={HomeStyles.profilePic} />
           ) : (
             <Ionicons
               name="person-circle"
@@ -27,7 +25,10 @@ export const Home = ({ navigation }) => {
               style={HomeStyles.defaultProfileImage}
             />
           )}
-          <TouchableOpacity style={HomeStyles.statusInput}>
+          <TouchableOpacity
+            style={HomeStyles.statusInput}
+            onPress={() => navigation.push("Post")}
+          >
             <Text style={HomeStyles.statusText}>What's on your mind?</Text>
           </TouchableOpacity>
         </View>

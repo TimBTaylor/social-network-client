@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { observer } from "mobx-react";
 import { NotificationStyles } from "../styles/Notification/Notifcation";
 import { notificationStore } from "../store/notification";
 import { Ionicons } from "@expo/vector-icons";
 import { userInfoStore } from "../store/user";
 import { postStore } from "../store/post";
+import BobsProfilePicture from "../images/randomguy.jpeg";
 
 const Notification = (props) => {
   const viewedNotifications = notificationStore.viewedNotifications;
@@ -164,7 +165,12 @@ const Notification = (props) => {
               style={NotificationStyles.viewedNotificationContainer}
               onPress={() => handleNotificationView(notification)}
             >
-              {notification.userFromImage !== null ? null : (
+              {notification.userFromID === 39 ? (
+                <Image
+                  source={BobsProfilePicture}
+                  style={NotificationStyles.profilePic}
+                />
+              ) : (
                 <Ionicons name="person-circle" size={60} color="black" />
               )}
               <View stlye={NotificationStyles.textAndDate}>

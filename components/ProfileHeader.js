@@ -5,6 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { userInfoStore } from "../store/user";
 import { followingStore } from "../store/following";
 import { observer } from "mobx-react";
+import TimProfileImage from "../images/outdoors.jpeg";
+import BobsProfilePicture from "../images/randomguy.jpeg";
 
 const ProfileHeader = (props) => {
   const userInfo = props.userInfo;
@@ -40,26 +42,36 @@ const ProfileHeader = (props) => {
 
   return (
     <View style={ProfileHeaderStyles.container}>
-      {userInfo.profileImage !== null ? null : (
-        <View style={ProfileHeaderStyles.imageContainer}>
+      <View style={ProfileHeaderStyles.imageContainer}>
+        {userInfo.name === "Tim Taylor" ? (
+          <Image
+            source={TimProfileImage}
+            style={ProfileHeaderStyles.profilePic}
+          />
+        ) : userInfo.name === "Bob Evans" ? (
+          <Image
+            source={BobsProfilePicture}
+            style={ProfileHeaderStyles.profilePic}
+          />
+        ) : (
           <Ionicons name="person-circle" size={115} color="black" />
-          {ownProfile ? null : visitorIsFollowing ? (
-            <TouchableOpacity
-              style={ProfileHeaderStyles.unfollow}
-              onPress={() => handleUnfollow()}
-            >
-              <Text style={ProfileHeaderStyles.unfollowText}>Following</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={ProfileHeaderStyles.follow}
-              onPress={() => handleFollow()}
-            >
-              <Text style={ProfileHeaderStyles.followText}>Follow</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-      )}
+        )}
+        {ownProfile ? null : visitorIsFollowing ? (
+          <TouchableOpacity
+            style={ProfileHeaderStyles.unfollow}
+            onPress={() => handleUnfollow()}
+          >
+            <Text style={ProfileHeaderStyles.unfollowText}>Following</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={ProfileHeaderStyles.follow}
+            onPress={() => handleFollow()}
+          >
+            <Text style={ProfileHeaderStyles.followText}>Follow</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       <Text style={ProfileHeaderStyles.name}>{userInfo.name}</Text>
       {userInfo.email !== undefined ? (
         <Text style={ProfileHeaderStyles.email}>{userInfo.email}</Text>

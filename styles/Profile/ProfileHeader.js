@@ -40,7 +40,7 @@ export const ProfileHeaderStyles = StyleSheet.create({
   unfollow: {
     position: "absolute",
     bottom: 5,
-    right: 0,
+    right: -20,
     zIndex: 2,
     backgroundColor: "#003585",
     padding: 7,
@@ -53,7 +53,7 @@ export const ProfileHeaderStyles = StyleSheet.create({
   follow: {
     position: "absolute",
     bottom: 5,
-    right: 0,
+    right: -20,
     zIndex: 2,
     backgroundColor: "#fff",
     borderColor: "#003585",
@@ -64,5 +64,11 @@ export const ProfileHeaderStyles = StyleSheet.create({
   followText: {
     fontWeight: "500",
     color: "#003585",
+  },
+  profilePic: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    marginBottom: 5,
   },
 });

@@ -48,4 +48,11 @@ export const NotificationStyles = StyleSheet.create({
     marginTop: 60,
     fontWeight: "500",
   },
+  profilePic: {
+    marginLeft: 5,
+    marginRight: 3,
+    height: 48,
+    width: 48,
+    borderRadius: 50,
+  },
 });

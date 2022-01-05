@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { userInfoStore } from "../store/user";
 import { SearchList } from "./SearchList";
 
-export const NavBar = () => {
+export const NavBar = (props) => {
   const [searchActive, setSearchActive] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
@@ -63,7 +63,15 @@ export const NavBar = () => {
           </View>
           <ScrollView>
             {filteredUsers.map((user) => {
-              return <SearchList key={user.id} user={user} />;
+              if (user.name !== userInfoStore.name) {
+                return (
+                  <SearchList
+                    key={user.id}
+                    user={user}
+                    navigation={props.navigation}
+                  />
+                );
+              }
             })}
           </ScrollView>
         </View>

@@ -6,10 +6,16 @@ import { SearchListStyles } from "../styles/SearchListStyles";
 
 export const SearchList = (props) => {
   const user = props.user;
-  console.log(user);
+
+  const handleUserClick = () => {
+    userInfoStore.getCurrentUserProfile(user.id, props.navigation);
+  };
 
   return (
-    <TouchableOpacity style={SearchListStyles.container}>
+    <TouchableOpacity
+      style={SearchListStyles.container}
+      onPress={handleUserClick}
+    >
       {user.profileImage !== null ? null : (
         <Ionicons name="person-circle" size={65} color="black" />
       )}
