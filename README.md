@@ -52,6 +52,7 @@ npm run devStart
 * Tim Taylor  
 [visit my linkedin](https://www.linkedin.com/in/tim-taylor-aaa970207/)
 
-![home screenshot](https://user-images.githubusercontent.com/79194271/148156235-af020d27-f250-4fc0-84bf-4cfbebf139f5.mp4
+* watch a short video of the application [here](https://user-images.githubusercontent.com/79194271/148156235-af020d27-f250-4fc0-84bf-4cfbebf139f5.mp4
 )
+
 
